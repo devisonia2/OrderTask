@@ -1,7 +1,6 @@
 package com.sonia.ordertask
 
 import android.app.Dialog
-import android.media.RouteListingPreference.Item
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -24,13 +23,11 @@ class FirstFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    var binding: FragmentFirstBinding? = null
-    var mainActivity: MainActivity? = null
-    var listAdapter = listadapter(mainActivity!!.orderList)
+    private var binding: FragmentFirstBinding? = null
+    private var mainActivity: MainActivity? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainActivity = activity as MainActivity
-
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -42,16 +39,18 @@ class FirstFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentFirstBinding.inflate(layoutInflater)
+        mainActivity!!.listadapter=listadapter(mainActivity!!.orderList)
         // Inflate the layout for this fragment
         return binding?.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding?.listview?.adapter = listAdapter
+
+        binding?.listview?.adapter = mainActivity!!.listadapter
 
         binding?.btnfab?.setOnClickListener {
-            var dialogBinding= CustomDialogBinding.inflate(layoutInflater)
-            var dialog= Dialog(requireContext()).apply{
+            val dialogBinding= CustomDialogBinding.inflate(layoutInflater)
+            val dialog= Dialog(requireContext()).apply{
                 setContentView(dialogBinding.root)
                 show()
             }
@@ -71,7 +70,7 @@ class FirstFragment : Fragment() {
                             dialogBinding.etquantity.text.toString().toInt()
                         )
                     )
-                    listAdapter.notifyDataSetChanged()
+                    mainActivity!!.listadapter.notifyDataSetChanged()
                     dialog.dismiss()
                 }
             }

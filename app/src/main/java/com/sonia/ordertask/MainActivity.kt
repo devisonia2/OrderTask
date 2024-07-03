@@ -7,11 +7,13 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.ListAdapter
 import com.sonia.ordertask.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     var binding: ActivityMainBinding? = null
     var orderList= arrayListOf<Order>()
+    lateinit var listadapter: listadapter
     lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

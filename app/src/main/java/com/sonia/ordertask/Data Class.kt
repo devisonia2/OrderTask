@@ -5,6 +5,6 @@ data class Order(
     var quantity : Int?=0,
 ) {
     override fun toString(): String {
-        return "$name $quantity"
+        return "$name "
     }
 }
